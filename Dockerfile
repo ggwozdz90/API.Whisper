@@ -1,5 +1,5 @@
 # Description: Dockerfile for building the API Whisper image
-FROM python:3.12.4-slim-bookworm as builder
+FROM python:3.12.4-slim-bookworm AS builder
 
 RUN pip install poetry==1.8.3
 
@@ -16,7 +16,7 @@ COPY runserver.py runserver.py
 RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 
 # Runtime image
-FROM python:3.12.4-slim-bookworm as runtime
+FROM python:3.12.4-slim-bookworm AS runtime
 
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
