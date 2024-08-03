@@ -1,4 +1,5 @@
-FROM python:3.12.4-alpine3.20 as builder
+# Description: Dockerfile for building the API Whisper image
+FROM python:3.11.9-slim-bookworm as builder
 
 RUN pip install poetry==1.8.3
 
@@ -8,21 +9,22 @@ ENV POETRY_NO_INTERACTION=1 \
     POETRY_CACHE_DIR=/tmp/poetry_cache
 
 WORKDIR /app
-
 COPY pyproject.toml poetry.lock ./
 COPY apiwhisper ./apiwhisper
 COPY runserver.py runserver.py
-RUN touch README.md
 
 RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 
-FROM python:3.12.4-alpine3.20 as runtime
+# Runtime image
+FROM python:3.11.9-slim-bookworm as runtime
 
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
 
-COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+RUN apt-get update && apt-get install -y ffmpeg
 
+WORKDIR /app
+COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 COPY apiwhisper ./apiwhisper
 COPY runserver.py runserver.py
 

@@ -5,8 +5,9 @@ description = ""
 authors = ["Grzegorz Gwóźdź <g.gwozdz@hotmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 fastapi = {extras = ["all"], version = "^0.103.1"}
+openai-whisper = {git = "https://github.com/openai/whisper.git", rev = "v20231117"}
 
 
 [tool.poetry.group.dev.dependencies]
