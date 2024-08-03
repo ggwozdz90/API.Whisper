@@ -8,3 +8,4 @@
 | Added multi stage and copy venv with project  |         171.95 MB |
 | Installed ffmpeg in runtime image             |         796.75 MB |
 | Added openai-whisper v20231117                |           6.14 GB |
+| Updated Python image to 3.12.4-slim-bookworm  |           6.14 GB |
