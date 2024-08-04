@@ -1,19 +1,13 @@
-"""
-runserver.py
----
-
-Run this script to start the apiwhisper app.
-"""
-
 import uvicorn
 
 
 def main():
     uvicorn.run(
-        "apiwhisper.api:app",
+        "src.api.fast_api:app",
         host="0.0.0.0",
         port=8000,
         reload=True,
+        server_header=False,
     )
 
 

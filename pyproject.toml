@@ -1,14 +1,15 @@
 [tool.poetry]
-name = "apiwhisper"
+name = "whisper-fastapi"
 version = "0.1.0"
 description = ""
 authors = ["Grzegorz Gwóźdź <g.gwozdz@hotmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = {extras = ["all"], version = "^0.103.1"}
-openai-whisper = {git = "https://github.com/openai/whisper.git", rev = "v20231117"}
-
+fastapi = { extras = ["all"], version = "^0.103.1" }
+openai-whisper = { git = "https://github.com/openai/whisper.git", rev = "v20231117" }
+pydantic = "^2.8.2"
+numpy = "<2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.8.0"

@@ -10,7 +10,7 @@ ENV POETRY_NO_INTERACTION=1 \
 
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
-COPY apiwhisper ./apiwhisper
+COPY src ./src
 COPY runserver.py runserver.py
 
 RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y ffmpeg
 
 WORKDIR /app
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
-COPY apiwhisper ./apiwhisper
+COPY src ./src
 COPY runserver.py runserver.py
 
 EXPOSE 8000
