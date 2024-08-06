@@ -18,7 +18,7 @@ class TokenRepository:
     def add(
         self,
         token: str,
-    ):
+    ) -> None:
         self.tokens.add(token)
 
     def is_valid(

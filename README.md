@@ -1,3 +1,48 @@
+# API Usage
+
+## Authentication
+
+To interact with the API, you must first authenticate and obtain a token. This is done by making a POST request to the `/login` endpoint.
+
+### Request
+
+- **Endpoint**: `/login`
+- **Method**: POST
+- **Payload**: Refer to `login_router.py` for the request payload structure.
+
+### Response
+
+- **Payload**: Refer to `login_router.py` for the response payload structure.
+
+The response will include a token that you will use for subsequent requests.
+
+## Transcription
+
+Once you have obtained the token, you can use it to make requests to the `/transcribe` endpoint. The token should be included in the `X-Token` header.
+
+### Request
+
+- **Endpoint**: `/transcribe`
+- **Method**: POST
+- **Headers**:
+  - `x-token`: The token received from the `/login` endpoint.
+- **Payload**: Refer to `transcribe_router.py` for the request payload structure.
+
+### Response
+
+- **Payload**: Refer to `transcribe_router.py` for the response payload structure.
+
+
+## Example Usage
+```bash
+# Step 1: Obtain the token
+curl -X POST "http://your-api-url/login" -H "Content-Type: application/json" -d '{"email": "your-email@example.com"}'
+
+# Step 2: Use the token to transcribe an audio file
+curl -X POST "http://your-api-url/transcribe" -H "x-token: your-token" -F "file=@path-to-your-audio-file"
+```
+
+
 # Docker Image Size at Different Stages
 
 | Stage                                         |   Image Size      |

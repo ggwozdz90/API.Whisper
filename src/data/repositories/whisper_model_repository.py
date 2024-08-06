@@ -3,7 +3,7 @@ from typing import Annotated
 import whisper
 from fastapi import Depends
 
-from ...core.settings import Settings, get_settings
+from src.core.settings import Settings, get_settings
 
 
 class WhisperModelRepository:
@@ -11,7 +11,7 @@ class WhisperModelRepository:
         self,
         settings: Annotated[Settings, Depends(get_settings)],
     ):
-        self.whisper_model_name = settings.whisper_model_name
+        self.whisper_model_type = settings.whisper_model_type
 
     def load_model(self) -> whisper.Whisper:
-        return whisper.load_model(self.whisper_model_name)
+        return whisper.load_model(self.whisper_model_type.value)

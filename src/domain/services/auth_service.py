@@ -3,17 +3,17 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from ...data.repositories.token_repository import TokenRepository
+from src.data.repositories.token_repository import TokenRepository
 
 
-class TokenService:
+class AuthService:
     def __init__(
         self,
         token_repository: Annotated[TokenRepository, Depends()],
     ):
         self.token_repository = token_repository
 
-    def create_token(
+    def login(
         self,
         email: str,
     ) -> str:

@@ -1,10 +1,18 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel
 
-from ...application.services.auth_service import AuthService
-from ..dtos.login_request_dto import LoginRequestDTO
-from ..dtos.login_response_dto import LoginResponseDTO
+from src.domain.services.auth_service import AuthService
+
+
+class LoginRequestDTO(BaseModel):
+    email: str
+
+
+class LoginResponseDTO(BaseModel):
+    token: str
+
 
 router = APIRouter()
 
@@ -20,8 +28,8 @@ router = APIRouter()
 def loginLoginDto(
     request: LoginRequestDTO,
     auth_service: Annotated[AuthService, Depends()],
-):
+) -> LoginResponseDTO:
     token = auth_service.login(request.email)
     if not token:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     return LoginResponseDTO(token=token)

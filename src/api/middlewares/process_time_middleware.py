@@ -3,7 +3,7 @@ import time
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from ...core.headers import Headers
+from src.core.headers import Headers
 
 
 class ProcessTimeMiddleware(BaseHTTPMiddleware):

@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - TRANSCRIBE_BASE_PATH=files_to_transcribe_docker_compose
-      - WHISPER_MODEL_NAME=base.en
+      - WHISPER_MODEL_TYPE=base.en
     ports:
       - "8000:8000"
     volumes:

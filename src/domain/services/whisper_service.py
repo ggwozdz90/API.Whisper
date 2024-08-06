@@ -3,12 +3,18 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from ...data.repositories.whisper_model_repository import WhisperModelRepository
+from src.data.repositories.whisper_model_repository import WhisperModelRepository
+
+from ...domain.exceptions.whisper_service_exceptions import (
+    ModelLoadException,
+    TranscriptionException,
+)
 
 
 class WhisperService:
     _instance = None
     _lock = Lock()
+
     whisper_repository: WhisperModelRepository
 
     def __new__(
@@ -25,11 +31,17 @@ class WhisperService:
 
     def load_model(self):
         if self.model is None:
-            self.model = self.whisper_repository.load_model()
+            try:
+                self.model = self.whisper_repository.load_model()
+            except Exception as e:
+                raise ModelLoadException(f"Failed to load model: {str(e)}")
 
     def transcribe(
         self,
         file_path: str,
     ) -> str:
-        result = self.model.transcribe(file_path, fp16=False)
-        return result["text"]
+        try:
+            result = self.model.transcribe(file_path, fp16=False)
+            return result["text"]
+        except Exception as e:
+            raise TranscriptionException(f"Failed to transcribe file: {str(e)}")
