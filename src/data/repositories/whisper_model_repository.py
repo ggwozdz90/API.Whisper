@@ -1,10 +1,17 @@
-import whisper
+from typing import Annotated
 
-from src.core.whisper_models import WhisperModel
+import whisper
+from fastapi import Depends
+
+from ...core.settings import Settings, get_settings
 
 
 class WhisperModelRepository:
+    def __init__(
+        self,
+        settings: Annotated[Settings, Depends(get_settings)],
+    ):
+        self.whisper_model_name = settings.whisper_model_name
+
     def load_model(self) -> whisper.Whisper:
-        return whisper.load_model(
-            WhisperModel.SMALL_EN.value
-        )  # TODO: Convert to start-up configuration
+        return whisper.load_model(self.whisper_model_name)

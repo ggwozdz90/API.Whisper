@@ -1,9 +1,15 @@
 version: '3.8'
 
 services:
-  apiwhisper:
+  api:
+    image: whisper-fastapi
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - TRANSCRIBE_BASE_PATH=files_to_transcribe_docker_compose
+      - WHISPER_MODEL_NAME=base.en
     ports:
       - "8000:8000"
+    volumes:
+      - ./volume/whispermodels:/root/.cache/whisper

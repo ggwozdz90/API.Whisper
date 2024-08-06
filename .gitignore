@@ -140,7 +140,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+#.env
 .venv
 env/
 venv/
@@ -188,3 +188,10 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
+
+# Whisper models volume
+/volume
+
+# Files to transcribe directories
+/files_to_transcribe
+/files_to_transcribe_dotenv

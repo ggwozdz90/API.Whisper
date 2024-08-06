@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from fastapi import FastAPI
 
 from .middlewares import process_time_middleware
@@ -12,5 +13,7 @@ def create_app() -> FastAPI:
     app.include_router(transcribe_router.router)
     return app
 
+
+load_dotenv()
 
 app = create_app()
