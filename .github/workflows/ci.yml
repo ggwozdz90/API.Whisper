@@ -9,7 +9,7 @@ on:
       - '**'
 
 jobs:
-  setup:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,33 +41,6 @@ jobs:
 
     - name: Cache Poetry virtual environment
       if: steps.restore-poetry-dependencies.outputs.cache-hit != 'true'
-      uses: actions/cache@v4.0.2
-      with:
-        path: ~/.cache/pypoetry/virtualenvs
-        key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-poetry-
-
-  test:
-    runs-on: ubuntu-latest
-    needs: setup
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4.1.7
-
-    - name: Set up Python
-      uses: actions/setup-python@v5.1.1
-      with:
-        python-version: '3.12'
-
-    - name: Install and configure Poetry
-      uses: snok/install-poetry@v1
-      with:
-        version: '1.8.3'
-
-    - name: Restore Poetry virtual environment from cache
-      id: restore-poetry-dependencies
       uses: actions/cache@v4.0.2
       with:
         path: ~/.cache/pypoetry/virtualenvs
