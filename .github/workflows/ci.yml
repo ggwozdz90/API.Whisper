@@ -26,11 +26,21 @@ jobs:
       with:
         version: '1.8.3'
 
+    - name: Restore Poetry virtual environment from cache
+      id: restore-poetry-dependencies
+      uses: actions/cache@v4.0.2
+      with:
+        path: ~/.cache/pypoetry/virtualenvs
+        key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-poetry-
+  
     - name: Install dependencies
-      run: |
-        poetry install
+      if: steps.restore-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install
 
     - name: Cache Poetry virtual environment
+      if: steps.restore-poetry-dependencies.outputs.cache-hit != 'true'
       uses: actions/cache@v4.0.2
       with:
         path: ~/.cache/pypoetry/virtualenvs
@@ -64,10 +74,6 @@ jobs:
         key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
         restore-keys: |
           ${{ runner.os }}-poetry-
-
-    - name: Install dependencies
-      if: steps.restore-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction --no-root
 
     - name: Run tests
       run: |
