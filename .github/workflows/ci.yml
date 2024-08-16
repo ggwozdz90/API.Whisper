@@ -48,6 +48,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-poetry-
 
+    - name: Run flake8 linter
+      run: poetry run flake8
+
     - name: Run tests
       run: |
         poetry run pytest tests
