@@ -3,6 +3,7 @@ name = "whisper-fastapi"
 version = "0.1.0"
 description = ""
 authors = ["Grzegorz Gwóźdź <g.gwozdz@hotmail.com>"]
+packages = [{ include = "*", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"
