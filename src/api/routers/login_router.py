@@ -25,7 +25,7 @@ router = APIRouter()
     status_code=status.HTTP_200_OK,
     response_model=LoginResponseDTO,
 )
-def loginLoginDto(
+def login(
     request: LoginRequestDTO,
     auth_service: Annotated[AuthService, Depends()],
 ) -> LoginResponseDTO:

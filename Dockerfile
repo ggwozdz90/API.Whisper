@@ -11,23 +11,24 @@ ENV POETRY_NO_INTERACTION=1 \
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 COPY src ./src
-COPY runserver.py runserver.py
 
-RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
+RUN poetry install --without dev --no-root && rm -rf "$POETRY_CACHE_DIR"
 
 # Runtime image
 FROM python:3.12.4-slim-bookworm AS runtime
 
 ENV VIRTUAL_ENV=/app/.venv \
-    PATH="/app/.venv/bin:$PATH"
+    PATH="/app/.venv/bin:$PATH" \
+    PYTHONPATH=/app/src
 
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apt-get update \
+    && apt-get install -y ffmpeg \
+    && apt-get clean
 
 WORKDIR /app
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 COPY src ./src
-COPY runserver.py runserver.py
 
 EXPOSE 8000
 
-ENTRYPOINT ["python", "-m", "runserver"]
+ENTRYPOINT ["python", "-m", "src.runserver"]

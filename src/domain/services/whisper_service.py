@@ -1,6 +1,7 @@
 from threading import Lock
-from typing import Annotated
+from typing import Annotated, Optional
 
+import whisper
 from fastapi import Depends
 
 from src.data.repositories.whisper_model_repository import WhisperModelRepository
@@ -12,15 +13,16 @@ from ...domain.exceptions.whisper_service_exceptions import (
 
 
 class WhisperService:
-    _instance = None
+    _instance: Optional["WhisperService"] = None
     _lock = Lock()
 
     whisper_repository: WhisperModelRepository
+    model: Optional[whisper.Whisper] = None
 
     def __new__(
         cls,
         whisper_repository: Annotated[WhisperModelRepository, Depends()],
-    ):
+    ) -> "WhisperService":
         if cls._instance is None:
             with cls._lock:
                 if cls._instance is None:
@@ -29,7 +31,7 @@ class WhisperService:
                     cls._instance.model = None
         return cls._instance
 
-    def load_model(self):
+    def load_model(self) -> None:
         if self.model is None:
             try:
                 self.model = self.whisper_repository.load_model()
@@ -41,7 +43,13 @@ class WhisperService:
         file_path: str,
     ) -> str:
         try:
+            if self.model is None:
+                raise TranscriptionException("Model is not loaded")
+
             result = self.model.transcribe(file_path, fp16=False)
-            return result["text"]
+            if not isinstance(result, dict) or "text" not in result:
+                raise TranscriptionException("Invalid transcription result")
+
+            return str(result["text"])
         except Exception as e:
             raise TranscriptionException(f"Failed to transcribe file: {str(e)}")

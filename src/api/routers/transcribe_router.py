@@ -1,11 +1,10 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, File, Header, HTTPException, UploadFile, status
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from pydantic import BaseModel
 
-from src.api.dependencies.validate_token_dependency import validate_token
+from api.dependencies.validate_x_token_dependency import validate_token
 from src.application.services.transcribe_service import TranscribeService
-from src.core.headers import Headers
 from src.domain.exceptions.file_service_exceptions import (
     FileDeleteException,
     FileSaveException,
@@ -34,7 +33,6 @@ router = APIRouter()
 async def transcribe(
     transcribe_service: Annotated[TranscribeService, Depends()],
     file: UploadFile = File(...),
-    x_token: str = Header(..., alias=Headers.X_TOKEN_HEADER),
 ) -> TranscribeResponseDTO:
     try:
         transcribed_text = await transcribe_service.transcribe(file)

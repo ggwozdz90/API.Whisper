@@ -3,6 +3,7 @@ name = "whisper-fastapi"
 version = "0.1.0"
 description = ""
 authors = ["Grzegorz Gwóźdź <g.gwozdz@hotmail.com>"]
+packages = [{ include = "*", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -13,7 +14,45 @@ numpy = "<2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.8.0"
+pytest = "^8.3.2"
+Flake8-pyproject = "^1.2.3"
+flake8 = "^7.1.1"
+black = "^24.8.0"
+mypy = "^1.11.1"
+isort = "^5.13.2"
+vulture = "^2.11"
+coverage = "^7.6.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+exclude = [".venv"]
+ignore = ['E203']
+max-line-length = 120
+count = true
+
+[tool.black]
+line-length = 120
+
+[tool.mypy]
+files = ["src", "tests"]
+strict = true
+ignore_missing_imports = true
+
+[tool.isort]
+profile = "black"
+
+[tool.vulture]
+paths = ["src", "tests"]
+min_confidence = 70
+
+[tool.coverage.run]
+branch = true
+command_line = "-m pytest"
+source = ["src"]
+relative_files = true
+
+[tool.coverage.xml]
+output = "coverage-reports/coverage.xml"
