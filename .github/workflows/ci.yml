@@ -34,6 +34,9 @@ jobs:
         key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
         restore-keys: |
           ${{ runner.os }}-poetry-
+
+    - name: Update lock file
+      run: poetry lock --no-update
   
     - name: Install dependencies
       if: steps.restore-poetry-dependencies.outputs.cache-hit != 'true'
