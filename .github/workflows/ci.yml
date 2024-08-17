@@ -60,5 +60,8 @@ jobs:
     - name: Run mypy type checker
       run: poetry run mypy .
 
+    - name: Run isort formatter
+      run: poetry run isort . --check --diff
+
     - name: Run tests
       run: poetry run pytest tests

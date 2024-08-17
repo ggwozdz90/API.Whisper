@@ -19,6 +19,7 @@ Flake8-pyproject = "^1.2.3"
 flake8 = "^7.1.1"
 black = "^24.8.0"
 mypy = "^1.11.1"
+isort = "^5.13.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -37,3 +38,6 @@ line-length = 120
 files = ["src", "tests"]
 strict = true
 ignore_missing_imports = true
+
+[tool.isort]
+profile = "black"
