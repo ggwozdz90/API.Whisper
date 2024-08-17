@@ -1,13 +1,13 @@
 from threading import Lock
-from typing import Set
+from typing import Optional, Set
 
 
 class TokenRepository:
-    _instance = None
+    _instance: Optional["TokenRepository"] = None
     _lock = Lock()
     tokens: Set[str]
 
-    def __new__(cls):
+    def __new__(cls) -> "TokenRepository":
         if cls._instance is None:
             with cls._lock:
                 if cls._instance is None:

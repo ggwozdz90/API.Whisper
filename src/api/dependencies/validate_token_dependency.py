@@ -9,7 +9,7 @@ from src.domain.services.auth_service import AuthService
 async def validate_token(
     request: Request,
     auth_service: Annotated[AuthService, Depends()],
-):
+) -> None:
     token = request.headers.get(Headers.X_TOKEN_HEADER)
     if token is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

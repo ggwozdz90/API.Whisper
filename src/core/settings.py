@@ -13,7 +13,10 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env")
 
     @field_validator("whisper_model_type")
-    def validate_whisper_model_type(cls, value):
+    def validate_whisper_model_type(
+        cls,
+        value: str,
+    ) -> WhisperModel:
         try:
             return WhisperModel(value)
         except ValueError:

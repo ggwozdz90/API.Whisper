@@ -1,7 +1,7 @@
 from src.core.whisper_models import WhisperModel
 
 
-def test_whisper_model_enum():
+def test_whisper_model_enum() -> None:
     assert WhisperModel.TINY.value == "tiny"
     assert WhisperModel.TINY_EN.value == "tiny.en"
     assert WhisperModel.BASE.value == "base"

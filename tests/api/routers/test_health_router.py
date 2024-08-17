@@ -9,7 +9,7 @@ app.include_router(router)
 client = TestClient(app)
 
 
-def test_health_check():
+def test_health_check() -> None:
     response = client.get("/health")
     assert response.status_code == 200
     assert response.text == ""

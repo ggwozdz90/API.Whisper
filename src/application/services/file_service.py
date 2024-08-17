@@ -22,6 +22,9 @@ class FileService:
         self,
         file: UploadFile,
     ) -> str:
+        if file.filename is None:
+            raise FileSaveException("Filename cannot be None")
+
         file_path = os.path.join(self.base_path, file.filename)
         try:
             with open(file_path, "wb") as f:
