@@ -74,6 +74,11 @@ jobs:
         poetry run coverage run
         poetry run coverage xml
 
+    - name: Run bandit security checker
+      run: |
+        mkdir -p bandit-reports
+        poetry run bandit -r src -o bandit-reports/bandit.json -f json
+
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:

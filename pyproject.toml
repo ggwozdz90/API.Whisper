@@ -22,6 +22,7 @@ mypy = "^1.11.1"
 isort = "^5.13.2"
 vulture = "^2.11"
 coverage = "^7.6.1"
+bandit = "^1.7.9"
 
 [build-system]
 requires = ["poetry-core"]
