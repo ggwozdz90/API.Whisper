@@ -21,6 +21,7 @@ black = "^24.8.0"
 mypy = "^1.11.1"
 isort = "^5.13.2"
 vulture = "^2.11"
+coverage = "^7.6.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -46,3 +47,12 @@ profile = "black"
 [tool.vulture]
 paths = ["src", "tests"]
 min_confidence = 70
+
+[tool.coverage.run]
+branch = true
+command_line = "-m pytest"
+source = ["src"]
+relative_files = true
+
+[tool.coverage.xml]
+output = "coverage-reports/coverage.xml"

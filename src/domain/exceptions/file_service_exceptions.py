@@ -14,3 +14,9 @@ class FileDeleteException(FileServiceException):
     """Exception raised when a file cannot be deleted."""
 
     pass
+
+
+class FileInvalidFilenameException(FileServiceException):
+    """Exception raised when a file has an invalid filename."""
+
+    pass

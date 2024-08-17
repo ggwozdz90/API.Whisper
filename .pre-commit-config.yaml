@@ -9,7 +9,12 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies:
-          ["pydantic>=2.8.2", "fastapi>=0.103.1", "pydantic-settings>=2.0.0"]
+          [
+            "pydantic>=2.8.2",
+            "fastapi>=0.103.1",
+            "pydantic-settings>=2.0.0",
+            "pytest>=8.3.2",
+          ]
 
   - repo: https://github.com/PyCQA/flake8
     rev: 7.1.1
