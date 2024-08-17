@@ -63,5 +63,8 @@ jobs:
     - name: Run isort formatter
       run: poetry run isort . --check --diff
 
+    - name: Run vulture dead code checker
+      run: poetry run vulture
+
     - name: Run tests
       run: poetry run pytest tests

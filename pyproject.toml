@@ -20,6 +20,7 @@ flake8 = "^7.1.1"
 black = "^24.8.0"
 mypy = "^1.11.1"
 isort = "^5.13.2"
+vulture = "^2.11"
 
 [build-system]
 requires = ["poetry-core"]
@@ -41,3 +42,7 @@ ignore_missing_imports = true
 
 [tool.isort]
 profile = "black"
+
+[tool.vulture]
+paths = ["src", "tests"]
+min_confidence = 70
