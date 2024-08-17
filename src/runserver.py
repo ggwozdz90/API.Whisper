@@ -1,10 +1,13 @@
+import os
+
 import uvicorn
 
 
 def main() -> None:
+    host = os.getenv("HOST", "127.0.0.1")
     uvicorn.run(
         "api.fast_api:app",
-        host="0.0.0.0",
+        host=host,
         port=8000,
         reload=True,
         server_header=False,
