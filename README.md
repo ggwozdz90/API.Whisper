@@ -8,7 +8,7 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ggwozdz90_API.Whisper&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ggwozdz90_API.Whisper)
 ![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ggwozdz90_API.Whisper&metric=coverage)
 
-![Known Vulnerabilities](https://snyk.io/test/github/ggwozdz90/API.Whisper/badge.svg)
+[![Known Vulnerabilities](https://snyk.io/test/github/ggwozdz90/API.Whisper/badge.svg)](https://snyk.io/test/github/ggwozdz90/API.Whisper)
 
 </div>
 
