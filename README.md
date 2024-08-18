@@ -1,3 +1,17 @@
+<div align="center">
+
+![Build Status](https://github.com/ggwozdz90/API.Whisper/actions/workflows/ci.yml/badge.svg)
+
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=ggwozdz90_API.Whisper&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=ggwozdz90_API.Whisper)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ggwozdz90_API.Whisper&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ggwozdz90_API.Whisper)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=ggwozdz90_API.Whisper&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=ggwozdz90_API.Whisper)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ggwozdz90_API.Whisper&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ggwozdz90_API.Whisper)
+![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ggwozdz90_API.Whisper&metric=coverage)
+
+![Known Vulnerabilities](https://snyk.io/test/github/ggwozdz90/API.Whisper/badge.svg)
+
+</div>
+
 # API Usage
 
 ## Authentication

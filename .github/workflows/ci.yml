@@ -81,6 +81,12 @@ jobs:
         mkdir -p bandit-reports
         poetry run bandit -r src -o bandit-reports/bandit.json -f json
 
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/python@master
+      continue-on-error: true
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
