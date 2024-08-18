@@ -1,3 +1,4 @@
+import hashlib
 import secrets
 from typing import Annotated
 
@@ -17,9 +18,11 @@ class AuthService:
         self,
         email: str,
     ) -> str:
+        hashed_email = hashlib.sha256(email.encode()).hexdigest()
         token = secrets.token_urlsafe(32)
-        self.token_repository.add(token)
-        return token
+        combined = f"{hashed_email}.{token}"
+        self.token_repository.add(combined)
+        return combined
 
     def validate_token(
         self,

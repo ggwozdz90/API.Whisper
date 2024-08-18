@@ -54,3 +54,4 @@ curl -X POST "http://your-api-url/transcribe" -H "x-token: your-token" -F "file=
 | Installed ffmpeg in runtime image             |         796.75 MB |
 | Added openai-whisper v20231117                |           6.14 GB |
 | Updated Python image to 3.12.4-slim-bookworm  |           6.14 GB |
+| Installed ffmpeg --no-install-recommends      |           5.98 GB |
