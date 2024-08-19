@@ -1,10 +1,24 @@
+import uvicorn
 from fastapi import FastAPI
 
 from src.adapters.rest.middlewares import process_time_middleware
 from src.adapters.rest.routers import health_router, login_router, transcribe_router
 
 
-def create_app() -> FastAPI:
+def start_rest_server(
+    host: str,
+    port: str,
+) -> None:
+    uvicorn.run(
+        "src.adapters.rest.rest_server:app",
+        host=host,
+        port=int(port),
+        reload=True,
+        server_header=False,
+    )
+
+
+def _create_app() -> FastAPI:
     app = FastAPI()
     app.add_middleware(process_time_middleware.ProcessTimeMiddleware)
     app.include_router(health_router.router)
@@ -13,4 +27,4 @@ def create_app() -> FastAPI:
     return app
 
 
-app = create_app()
+app = _create_app()

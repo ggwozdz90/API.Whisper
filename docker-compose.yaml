@@ -10,6 +10,7 @@ services:
       - TRANSCRIBE_BASE_PATH=files_to_transcribe_docker_compose
       - WHISPER_MODEL_TYPE=base.en
       - HOST=0.0.0.0
+      - REST_PORT=8000
     ports:
       - "8000:8000"
     volumes:
