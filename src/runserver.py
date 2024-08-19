@@ -1,12 +1,15 @@
 import os
 
 import uvicorn
+from dotenv import load_dotenv
 
 
 def main() -> None:
+    load_dotenv()
+
     host = os.getenv("HOST", "127.0.0.1")
     uvicorn.run(
-        "api.fast_api:app",
+        "src.adapters.rest.fast_api:app",
         host=host,
         port=8000,
         reload=True,

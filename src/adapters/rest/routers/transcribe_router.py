@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from pydantic import BaseModel
 
-from api.dependencies.validate_x_token_dependency import validate_token
+from src.adapters.rest.dependencies.validate_x_token_dependency import validate_token
 from src.application.services.transcribe_service import TranscribeService
 from src.domain.exceptions.file_service_exceptions import (
     FileDeleteException,
