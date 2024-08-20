@@ -12,7 +12,7 @@
 
 </div>
 
-# API Usage
+# REST API Usage
 
 ## Authentication
 

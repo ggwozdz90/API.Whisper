@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package health;
+
+// HealthService provides health check functionalities.
+service HealthService {
+  // Check the health status of a service.
+  rpc Check (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// HealthCheckRequest is the request message for health checking.
+message HealthCheckRequest {
+  // The name of the service to check.
+  string service = 1;
+}
+
+// HealthCheckResponse is the response message for health checking.
+message HealthCheckResponse {
+  // The health status of the service.
+  string status = 1;
+}

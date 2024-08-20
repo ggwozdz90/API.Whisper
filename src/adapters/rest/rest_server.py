@@ -9,13 +9,15 @@ def start_rest_server(
     host: str,
     port: str,
 ) -> None:
-    uvicorn.run(
+    config = uvicorn.Config(
         "src.adapters.rest.rest_server:app",
         host=host,
         port=int(port),
         reload=True,
         server_header=False,
     )
+    server = uvicorn.Server(config)
+    server.run()
 
 
 def _create_app() -> FastAPI:

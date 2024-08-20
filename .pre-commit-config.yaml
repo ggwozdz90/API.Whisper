@@ -8,12 +8,15 @@ repos:
     rev: v1.11.1
     hooks:
       - id: mypy
+        pass_filenames: false
+        args: ["."]
         additional_dependencies:
           [
             "pydantic>=2.8.2",
             "fastapi>=0.103.1",
             "pydantic-settings>=2.0.0",
             "pytest>=8.3.2",
+            "grpcio>=1.65.5",
           ]
 
   - repo: https://github.com/PyCQA/flake8

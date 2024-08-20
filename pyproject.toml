@@ -11,6 +11,7 @@ fastapi = { extras = ["all"], version = "^0.112.1" }
 openai-whisper = { git = "https://github.com/openai/whisper.git", rev = "v20231117" }
 pydantic = "^2.8.2"
 numpy = "<2.0.0"
+grpcio = "^1.65.5"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.8.0"
@@ -23,27 +24,34 @@ isort = "^5.13.2"
 vulture = "^2.11"
 coverage = "^7.6.1"
 bandit = "^1.7.9"
+grpcio-tools = "^1.65.5"
+mypy-protobuf = "^3.6.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.flake8]
-exclude = [".venv"]
+exclude = [".venv", "src/adapters/grpc/pb*"]
 ignore = ['E203']
 max-line-length = 120
 count = true
 
 [tool.black]
 line-length = 120
+force-exclude = '''
+src/adapters/grpc/pb
+'''
 
 [tool.mypy]
 files = ["src", "tests"]
 strict = true
 ignore_missing_imports = true
+exclude = '^src/adapters/grpc/pb/'
 
 [tool.isort]
 profile = "black"
+skip_glob = ["src/adapters/grpc/pb/*"]
 
 [tool.vulture]
 paths = ["src", "tests"]
