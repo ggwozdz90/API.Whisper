@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package transcribe;
+
+// TranscribeService provides functionalities to transcribe audio files.
+service TranscribeService {
+  // Transcribe an audio file to text.
+  rpc Transcribe (TranscribeRequest) returns (TranscribeResponse);
+}
+
+// TranscribeRequest is the request message for transcribing an audio file.
+message TranscribeRequest {
+  // The audio file content.
+  bytes file_content = 1;
+  
+  // The filename of the audio file.
+  string filename = 2;
+}
+
+// TranscribeResponse is the response message containing the transcribed text.
+message TranscribeResponse {
+  // The transcribed text.
+  string text = 1;
+}

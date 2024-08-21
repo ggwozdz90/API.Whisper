@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package auth;
+
+// AuthService provides authentication functionalities.
+service AuthService {
+  // Login method to authenticate the user and return a token.
+  rpc Login (LoginRequest) returns (LoginResponse);
+}
+
+// LoginRequest is the request message for logging in.
+message LoginRequest {
+  // The email of the user.
+  string email = 1;
+}
+
+// LoginResponse is the response message containing the authentication token.
+message LoginResponse {
+  // The authentication token.
+  string token = 1;
+}
