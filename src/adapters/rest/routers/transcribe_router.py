@@ -4,7 +4,9 @@ from pydantic import BaseModel
 
 from core.container import Container
 from src.adapters.rest.dependencies.validate_x_token_dependency import validate_token
+from src.application.services.file_service import FileService
 from src.application.services.transcribe_service import TranscribeService
+from src.core.settings import Settings
 from src.domain.exceptions.file_service_exceptions import (
     FileDeleteException,
     FileSaveException,
@@ -34,9 +36,14 @@ router = APIRouter()
 async def transcribe(
     file: UploadFile = File(...),
     transcribe_service: TranscribeService = Depends(Provide[Container.transcribe_service]),
+    file_service: FileService = Depends(Provide[Container.file_service]),
+    settings: Settings = Depends(Provide[Container.settings]),
 ) -> TranscribeResponseDTO:
+    file_path = None
     try:
-        transcribed_text = await transcribe_service.transcribe(file)
+        file_path = file_service.get_file_path(settings.transcribe_base_path, file.filename)
+        await file_service.save_file(file_path, file)
+        transcribed_text = await transcribe_service.transcribe(file_path)
         return TranscribeResponseDTO(text=transcribed_text)
     except FileSaveException as e:
         raise HTTPException(
@@ -63,3 +70,6 @@ async def transcribe(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error transcribing file: {str(e)}",
         )
+    finally:
+        if file_path:
+            file_service.delete_file(file_path)

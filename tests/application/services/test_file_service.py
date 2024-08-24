@@ -3,8 +3,8 @@ from typing import Optional
 
 import pytest
 
+from src.application.services.file_service import FileService
 from src.domain.exceptions.file_service_exceptions import FileInvalidFilenameException
-from src.domain.services.file_service import FileService
 
 
 @pytest.fixture
