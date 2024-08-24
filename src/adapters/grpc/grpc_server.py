@@ -8,7 +8,10 @@ from adapters.grpc.services.health_service import HealthService
 from adapters.grpc.services.transcribe_service import TranscribeService
 
 
-def start_grpc_server(host: str, port: str) -> None:
+def start_grpc_server(
+    host: str,
+    port: str,
+) -> None:
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     health_pb2_grpc.add_HealthServiceServicer_to_server(HealthService(), server)
     auth_pb2_grpc.add_AuthServiceServicer_to_server(AuthService(), server)

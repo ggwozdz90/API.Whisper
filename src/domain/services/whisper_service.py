@@ -1,35 +1,22 @@
-from threading import Lock
-from typing import Annotated, Optional
+from typing import Optional
 
 import whisper
-from fastapi import Depends
 
 from src.data.repositories.whisper_model_repository import WhisperModelRepository
-
-from ...domain.exceptions.whisper_service_exceptions import (
+from src.domain.exceptions.whisper_service_exceptions import (
     ModelLoadException,
     TranscriptionException,
 )
 
 
 class WhisperService:
-    _instance: Optional["WhisperService"] = None
-    _lock = Lock()
+    def __init__(
+        self,
+        whisper_repository: WhisperModelRepository,
+    ):
+        self.whisper_repository = whisper_repository
 
-    whisper_repository: WhisperModelRepository
     model: Optional[whisper.Whisper] = None
-
-    def __new__(
-        cls,
-        whisper_repository: Annotated[WhisperModelRepository, Depends()],
-    ) -> "WhisperService":
-        if cls._instance is None:
-            with cls._lock:
-                if cls._instance is None:
-                    cls._instance = super(WhisperService, cls).__new__(cls)
-                    cls._instance.whisper_repository = whisper_repository
-                    cls._instance.model = None
-        return cls._instance
 
     def load_model(self) -> None:
         if self.model is None:

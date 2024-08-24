@@ -1,8 +1,5 @@
 import hashlib
 import secrets
-from typing import Annotated
-
-from fastapi import Depends
 
 from src.data.repositories.token_repository import TokenRepository
 
@@ -10,7 +7,7 @@ from src.data.repositories.token_repository import TokenRepository
 class AuthService:
     def __init__(
         self,
-        token_repository: Annotated[TokenRepository, Depends()],
+        token_repository: TokenRepository,
     ):
         self.token_repository = token_repository
 

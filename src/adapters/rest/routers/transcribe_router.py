@@ -1,8 +1,8 @@
-from typing import Annotated
-
+from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from pydantic import BaseModel
 
+from core.container import Container
 from src.adapters.rest.dependencies.validate_x_token_dependency import validate_token
 from src.application.services.transcribe_service import TranscribeService
 from src.domain.exceptions.file_service_exceptions import (
@@ -30,9 +30,10 @@ router = APIRouter()
     status_code=status.HTTP_200_OK,
     dependencies=[Depends(validate_token)],
 )
+@inject  # type: ignore
 async def transcribe(
-    transcribe_service: Annotated[TranscribeService, Depends()],
     file: UploadFile = File(...),
+    transcribe_service: TranscribeService = Depends(Provide[Container.transcribe_service]),
 ) -> TranscribeResponseDTO:
     try:
         transcribed_text = await transcribe_service.transcribe(file)

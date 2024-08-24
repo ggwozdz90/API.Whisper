@@ -12,6 +12,7 @@ openai-whisper = { git = "https://github.com/openai/whisper.git", rev = "v202311
 pydantic = "^2.8.2"
 numpy = "<2.0.0"
 grpcio = "^1.65.5"
+dependency-injector = "4.42.0b1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.8.0"

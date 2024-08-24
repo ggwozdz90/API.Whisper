@@ -1,17 +1,24 @@
 import uvicorn
 from fastapi import FastAPI
 
-from adapters.rest.routers import auth_router
+from adapters.rest.routers import auth_router, health_router, transcribe_router
+from core.container import Container
 from src.adapters.rest.middlewares import process_time_middleware
-from src.adapters.rest.routers import health_router, transcribe_router
 
 
 def start_rest_server(
     host: str,
     port: str,
+    container: Container,
 ) -> None:
+    container.wire(
+        modules=[
+            auth_router,
+            transcribe_router,
+        ]
+    )
     config = uvicorn.Config(
-        "src.adapters.rest.rest_server:app",
+        _create_app,
         host=host,
         port=int(port),
         reload=True,
@@ -28,6 +35,3 @@ def _create_app() -> FastAPI:
     app.include_router(auth_router.router)
     app.include_router(transcribe_router.router)
     return app
-
-
-app = _create_app()

@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 from adapters.grpc.grpc_server import start_grpc_server
 from adapters.rest.rest_server import start_rest_server
+from core.container import Container
 
 
 def main() -> None:
@@ -14,8 +15,10 @@ def main() -> None:
     rest_port = os.getenv("REST_PORT", "8000")
     grpc_port = os.getenv("GRPC_PORT", "8001")
 
+    container = Container()
+
     grpc_thread = threading.Thread(target=start_grpc_server, args=(host, grpc_port))
-    rest_thread = threading.Thread(target=start_rest_server, args=(host, rest_port))
+    rest_thread = threading.Thread(target=start_rest_server, args=(host, rest_port, container))
 
     grpc_thread.start()
     rest_thread.start()

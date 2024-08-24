@@ -1,8 +1,6 @@
-from typing import Annotated
+from fastapi import UploadFile
 
-from fastapi import Depends, UploadFile
-
-from core.settings import Settings, get_settings
+from core.settings import Settings
 from src.domain.services.file_service import FileService
 from src.domain.services.whisper_service import WhisperService
 
@@ -10,9 +8,9 @@ from src.domain.services.whisper_service import WhisperService
 class TranscribeService:
     def __init__(
         self,
-        whisper_service: Annotated[WhisperService, Depends()],
-        file_service: Annotated[FileService, Depends()],
-        settings: Annotated[Settings, Depends(get_settings)],
+        whisper_service: WhisperService,
+        file_service: FileService,
+        settings: Settings,
     ):
         self.whisper_service = whisper_service
         self.file_service = file_service

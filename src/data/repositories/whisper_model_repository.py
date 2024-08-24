@@ -1,15 +1,12 @@
-from typing import Annotated
-
 import whisper
-from fastapi import Depends
 
-from src.core.settings import Settings, get_settings
+from core.settings import Settings
 
 
 class WhisperModelRepository:
     def __init__(
         self,
-        settings: Annotated[Settings, Depends(get_settings)],
+        settings: Settings,
     ):
         self.whisper_model_type = settings.whisper_model_type
 

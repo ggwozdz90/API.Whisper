@@ -1,8 +1,8 @@
-from typing import Annotated
-
+from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 
+from core.container import Container
 from src.domain.services.auth_service import AuthService
 
 
@@ -25,9 +25,10 @@ router = APIRouter()
     status_code=status.HTTP_200_OK,
     response_model=LoginResponseDTO,
 )
+@inject  # type: ignore
 def login(
     request: LoginRequestDTO,
-    auth_service: Annotated[AuthService, Depends()],
+    auth_service: AuthService = Depends(Provide[Container.auth_service]),
 ) -> LoginResponseDTO:
     token = auth_service.login(request.email)
     if not token:
