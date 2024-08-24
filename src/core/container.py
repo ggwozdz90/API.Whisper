@@ -1,5 +1,8 @@
 from dependency_injector import containers, providers
 
+from adapters.grpc.services.auth_grpc_service import AuthGrpcService
+from adapters.grpc.services.health_grpc_service import HealthGrpcService
+from adapters.grpc.services.transcribe_grpc_service import TranscribeGrpcService
 from application.services.file_service import FileService
 from application.services.transcribe_service import TranscribeService
 from core.settings import Settings
@@ -36,4 +39,18 @@ class Container(containers.DeclarativeContainer):
     transcribe_service: TranscribeService = providers.Factory(
         TranscribeService,
         whisper_service=whisper_service,
+    )
+
+    health_grpc_service: HealthGrpcService = providers.Factory(HealthGrpcService)
+
+    auth_grpc_service: AuthGrpcService = providers.Factory(
+        AuthGrpcService,
+        auth_service=auth_service,
+    )
+
+    transcribe_grpc_service: TranscribeGrpcService = providers.Factory(
+        TranscribeGrpcService,
+        transcribe_service=transcribe_service,
+        file_service=file_service,
+        settings=settings,
     )

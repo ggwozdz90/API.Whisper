@@ -152,3 +152,36 @@ async def test_save_file_exception(mocker: MockerFixture, file_service: FileServ
     mock_open.assert_called_once_with("/fake/path/test.txt", "wb")
     mock_file.read.assert_not_awaited()
     assert str(excinfo.value) == "Failed to save file: Some error"
+
+
+@pytest.mark.asyncio
+async def test_save_bytes_success(mocker: MockerFixture, file_service: FileService) -> None:
+    mock_makedirs = mocker.patch("os.makedirs")
+    mock_open = mocker.mock_open()
+    mocker.patch("builtins.open", mock_open)
+
+    file_content = b"test content"
+
+    file_service.save_bytes("/fake/path/test.txt", file_content)
+
+    mock_makedirs.assert_called_once_with("/fake/path", exist_ok=True)
+    mock_open.assert_called_once_with("/fake/path/test.txt", "wb")
+    mock_open().write.assert_called_once_with(file_content)
+
+
+@pytest.mark.asyncio
+async def test_save_bytes_exception(mocker: MockerFixture, file_service: FileService) -> None:
+    mock_makedirs = mocker.patch("os.makedirs")
+    mock_open = mocker.mock_open()
+    mocker.patch("builtins.open", mock_open)
+
+    file_content = b"test content"
+
+    mock_open.side_effect = Exception("Some error")
+
+    with pytest.raises(FileSaveException, match="Failed to save file: Some error") as excinfo:
+        file_service.save_bytes("/fake/path/test.txt", file_content)
+
+    mock_makedirs.assert_called_once_with("/fake/path", exist_ok=True)
+    mock_open.assert_called_once_with("/fake/path/test.txt", "wb")
+    assert str(excinfo.value) == "Failed to save file: Some error"

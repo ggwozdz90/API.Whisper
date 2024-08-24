@@ -17,7 +17,7 @@ def main() -> None:
 
     container = Container()
 
-    grpc_thread = threading.Thread(target=start_grpc_server, args=(host, grpc_port))
+    grpc_thread = threading.Thread(target=start_grpc_server, args=(host, grpc_port, container))
     rest_thread = threading.Thread(target=start_rest_server, args=(host, rest_port, container))
 
     grpc_thread.start()

@@ -29,6 +29,20 @@ class FileService:
         except Exception as e:
             raise FileSaveException(f"Failed to save file: {str(e)}")
 
+    def save_bytes(
+        self,
+        file_path: str,
+        file_content: bytes,
+    ) -> None:
+        directory = os.path.dirname(file_path)
+        os.makedirs(directory, exist_ok=True)
+
+        try:
+            with open(file_path, "wb") as f:
+                f.write(file_content)
+        except Exception as e:
+            raise FileSaveException(f"Failed to save file: {str(e)}")
+
     def delete_file(
         self,
         file_path: str,
