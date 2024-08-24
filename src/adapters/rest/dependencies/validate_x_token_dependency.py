@@ -6,7 +6,7 @@ from src.core.headers import Headers
 from src.domain.services.auth_service import AuthService
 
 
-@inject  # type: ignore
+@inject
 async def validate_token(
     auth_service: AuthService = Depends(Provide[Container.auth_service]),
     x_token: str = Header(..., alias=Headers.X_TOKEN_HEADER),

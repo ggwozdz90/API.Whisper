@@ -25,7 +25,7 @@ router = APIRouter()
     status_code=status.HTTP_200_OK,
     response_model=LoginResponseDTO,
 )
-@inject  # type: ignore
+@inject
 def login(
     request: LoginRequestDTO,
     auth_service: AuthService = Depends(Provide[Container.auth_service]),

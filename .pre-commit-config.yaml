@@ -17,6 +17,7 @@ repos:
             "pydantic-settings>=2.0.0",
             "pytest>=8.3.2",
             "grpcio>=1.65.5",
+            "dependency-injector>=4.42.0b1",
           ]
 
   - repo: https://github.com/PyCQA/flake8

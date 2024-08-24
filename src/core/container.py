@@ -9,7 +9,7 @@ from domain.services.file_service import FileService
 from domain.services.whisper_service import WhisperService
 
 
-class Container(containers.DeclarativeContainer):  # type: ignore
+class Container(containers.DeclarativeContainer):
     config = providers.Configuration()
 
     settings: Settings = providers.Singleton(Settings)

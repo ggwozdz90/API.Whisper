@@ -30,7 +30,7 @@ router = APIRouter()
     status_code=status.HTTP_200_OK,
     dependencies=[Depends(validate_token)],
 )
-@inject  # type: ignore
+@inject
 async def transcribe(
     file: UploadFile = File(...),
     transcribe_service: TranscribeService = Depends(Provide[Container.transcribe_service]),
